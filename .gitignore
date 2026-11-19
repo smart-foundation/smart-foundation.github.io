@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.DS_Store
+*.local
+
+# Build output is committed because GitHub Pages serves /docs
+!docs/

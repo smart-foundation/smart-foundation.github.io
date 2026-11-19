@@ -1,0 +1,168 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Geist Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("@fontsource-variable/geist/files/geist-latin-wght-normal.woff2") format("woff2-variations");
+}
+@font-face {
+  font-family: "Geist Mono Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("@fontsource-variable/geist-mono/files/geist-mono-latin-wght-normal.woff2") format("woff2-variations");
+}
+
+@theme {
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+:root {
+  --bg: #000;
+  --ink: #fff;
+}
+[data-inverted="true"] {
+  --bg: #fff;
+  --ink: #000;
+}
+
+html {
+  scroll-snap-type: y mandatory;
+  background: #000;
+  scrollbar-width: none;
+}
+html::-webkit-scrollbar {
+  display: none;
+}
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: #000;
+  color: #fff;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+::selection {
+  background: #fff;
+  color: #000;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  html,
+  a,
+  button {
+    cursor: none;
+  }
+}
+
+.snap {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* ---------- scramble text ---------- */
+.scr {
+  position: relative;
+  display: inline-block;
+}
+.scr.h {
+  opacity: 0;
+}
+.scr.g {
+  color: transparent;
+}
+.scr.g::after {
+  content: attr(data-g);
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: var(--ink);
+  opacity: 0.55;
+}
+.word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* ---------- scene layers ---------- */
+.layer {
+  transition: opacity 0.5s steps(6, end), filter 0.5s ease, transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.layer[data-on="false"] {
+  opacity: 0;
+  filter: blur(6px);
+  pointer-events: none !important;
+  visibility: hidden;
+  transition: opacity 0.25s steps(4, end), filter 0.25s ease, visibility 0s linear 0.25s;
+}
+.layer[data-on="false"] * {
+  pointer-events: none !important;
+}
+
+/* ---------- glitch bands (difference-blended) ---------- */
+.bands {
+  mix-blend-mode: difference;
+}
+.band {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: #fff;
+  opacity: 0;
+  animation: bandFlicker var(--dur, 360ms) step-end var(--delay, 0ms) both;
+  will-change: opacity, transform;
+}
+@keyframes bandFlicker {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  25% {
+    opacity: 0;
+    transform: translateX(var(--jx, 12px));
+  }
+  42% {
+    opacity: 1;
+    transform: translateX(calc(var(--jx, 12px) * -1));
+  }
+  68% {
+    opacity: 0;
+  }
+  80% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ---------- little breathing cue ---------- */
+@keyframes drip {
+  0% {
+    transform: translateY(-6px);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(26px);
+    opacity: 0;
+  }
+}
+.drip {
+  animation: drip 2.4s cubic-bezier(0.5, 0, 0.2, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .band,
+  .drip {
+    animation: none;
+  }
+}
