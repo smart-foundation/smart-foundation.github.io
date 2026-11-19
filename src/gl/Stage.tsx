@@ -88,8 +88,22 @@ void shape(int id, vec4 s, vec2 g, out vec3 p, out vec2 info){
     p = b + vec3(0.0, 1.0, 0.0);
     info = vec2(mix(1.0, 0.35, r/4.3), 0.8 + 1.6*exp(-r*1.6));
   }
+  else if (id == 4) {
+    // 04 — smart protocol: one interwoven path
+    float t = s.x*TAU;
+    float r = 2.0 + 0.7*cos(3.0*t);
+    vec3 c = vec3(r*cos(2.0*t), 0.8*sin(3.0*t), r*sin(2.0*t));
+    float a = s.y*TAU;
+    float z = 2.0*s.z - 1.0;
+    float rr = sqrt(max(0.0, 1.0 - z*z));
+    vec3 off = vec3(rr*cos(a), rr*sin(a), z)*(0.06 + 0.16*s.w);
+    vec3 b = rotY(T*0.18)*rotX(0.4)*(c + off);
+    b *= mix(0.72, 1.0, o);
+    p = b + vec3(o*2.0, 0.15 + (1.0 - o)*1.35, 0.0);
+    info = vec2(0.4 + 0.6*h2, 0.85 + 0.5*h1);
+  }
   else {
-    // 04 — work: an orb of latitudes and one slow ring
+    // 05 — work: an orb of latitudes and one slow ring
     vec3 b;
     if (s.w > 0.88) {
       float a = s.x*TAU + T*0.2;
@@ -113,8 +127,8 @@ void shape(int id, vec4 s, vec2 g, out vec3 p, out vec2 info){
 }
 
 void main(){
-  float pr = clamp(uProg, 0.0, 4.0);
-  float fa = min(floor(pr), 3.0);
+  float pr = clamp(uProg, 0.0, 5.0);
+  float fa = min(floor(pr), 4.0);
   float t = pr - fa;
   int ia = int(fa);
   int ib = ia + 1;

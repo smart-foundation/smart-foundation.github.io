@@ -1,6 +1,6 @@
 // Shared mutable state between the DOM layer and the WebGL stage.
 // Kept outside React so the render loop never triggers re-renders.
-export const SCENES = 5;
+export const SCENES = 6;
 
 export const S = {
   target: 0, // scroll progress in scenes (raw)

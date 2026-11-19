@@ -5,14 +5,14 @@ import Cursor from "./components/Cursor";
 import Bands, { Fx, makeFx } from "./components/Bands";
 import { S, SCENES } from "./lib/store";
 
-const NAMES = ["foundation", "purpose", "method", "identity", "work"];
+const NAMES = ["foundation", "purpose", "method", "identity", "smart protocol", "work"];
 
 // top → bottom as displayed. `layer` matches the disc index in the shader (0 = bottom).
 const LAYERS = [
   { name: "Applications", layer: 3, desc: "What people use." },
   { name: "Interfaces", layer: 2, desc: "How they meet the system." },
   { name: "Engines", layer: 1, desc: "What does the work." },
-  { name: "Agreements", layer: 0, desc: "What every part can rely on." },
+  { name: "Foundations", layer: 0, desc: "What every part can rely on." },
 ];
 
 const mono = "font-mono text-[10px] uppercase tracking-[0.28em]";
@@ -242,7 +242,7 @@ export default function App() {
         />
         <p className="absolute bottom-[13vh] right-6 max-w-[19rem] text-[13px] leading-relaxed opacity-60 md:right-20">
           <Scramble
-            text={"Systems, applications and tools, built with care for the people who depend on them."}
+            text={"Shipping is the easy part.\nKeeping it working is the job."}
             active={scene === 1}
             delay={700}
             duration={900}
@@ -257,7 +257,7 @@ export default function App() {
       <Layer on={scene === 3} className="flex flex-col items-center justify-end px-6 pb-[8vh] text-center">
         <Scramble
           as="h2"
-          text={"Not a\nproduct."}
+          text={"Smart\nFoundation."}
           active={scene === 3}
           delay={250}
           duration={1100}
@@ -265,7 +265,7 @@ export default function App() {
         />
         <p className="mt-8 max-w-sm text-[13px] leading-relaxed opacity-60 md:mt-10">
           <Scramble
-            text={"Smart Foundation is the organization behind the work.\nSystems, applications and tools are what we make — not what we are."}
+            text="A software organization."
             active={scene === 3}
             delay={900}
             duration={900}
@@ -273,22 +273,73 @@ export default function App() {
         </p>
       </Layer>
 
-      {/* 04 — work */}
-      <Layer on={scene === 4} className={`flex flex-col justify-end pb-[13vh] md:pb-[15vh] ${pad}`}>
-        <p className={`${mono} opacity-50`}>
-          <Scramble text="what we make" active={scene === 4} delay={100} />
-        </p>
-        <Scramble
-          as="h2"
-          text={"Systems.\nApplications.\nTools."}
-          active={scene === 4}
-          delay={250}
-          duration={1100}
-          className="mt-6 text-[clamp(2.2rem,5.2vw,5.4rem)] font-extralight leading-[0.95] tracking-[-0.045em]"
-        />
-        <p className="mt-7 max-w-[24rem] border-t border-white/15 pt-5 text-[13px] leading-relaxed opacity-60 md:mt-9">
-          RISC-V software. Smart Suite. Developer tools.
-        </p>
+      {/* 04 — smart protocol */}
+      <Layer on={scene === 4} className={`flex items-end pb-[13vh] md:items-center md:pb-0 ${pad}`}>
+        <div className="max-w-[28rem]">
+          <Scramble
+            as="h2"
+            text="Smart Protocol."
+            active={scene === 4}
+            delay={200}
+            duration={1100}
+            className="text-[clamp(2.4rem,5.6vw,5.8rem)] font-extralight leading-[0.95] tracking-[-0.045em]"
+          />
+          <p className="mt-6 max-w-[22rem] text-[13px] leading-relaxed opacity-60 md:mt-8">
+            <Scramble
+              text="A shared set of interfaces that let software work together."
+              active={scene === 4}
+              delay={700}
+              duration={900}
+            />
+          </p>
+          <a
+            href="https://github.com/smart-foundation/smart-protocol-official"
+            target="_blank"
+            rel="noreferrer"
+            onPointerEnter={() => {
+              S.burst = Math.max(S.burst, 0.75);
+              setCta((c) => c + 1);
+            }}
+            className="group pointer-events-auto mt-8 inline-flex w-fit items-center gap-5 rounded-full bg-[var(--ink)] py-4 pl-7 pr-6 text-[14px] text-[var(--bg)] transition-transform duration-500 hover:scale-[1.03] md:mt-10"
+          >
+            <Scramble text="smart-protocol-official" active={scene === 4} trigger={cta} delay={cta ? 0 : 800} duration={700} />
+            <span className="block h-2 w-2 rounded-full bg-[var(--bg)] transition-transform duration-500 group-hover:scale-[2.4]" />
+          </a>
+        </div>
+      </Layer>
+
+      {/* 05 — work */}
+      <Layer on={scene === 5} className={`flex flex-col justify-end pb-[13vh] md:pb-[15vh] ${pad}`}>
+        <div className="max-w-[26rem] border-t border-white/15 pt-5">
+          <div className="grid gap-5 md:gap-6">
+            <div>
+              <Scramble
+                as="h2"
+                text="Smart Suite."
+                active={scene === 5}
+                delay={250}
+                duration={900}
+                className="text-[clamp(1.5rem,2.4vw,2.2rem)] font-extralight leading-tight tracking-[-0.035em]"
+              />
+              <p className="mt-2 text-[13px] leading-relaxed opacity-60">
+                <Scramble text="Files, photos, terminal and video." active={scene === 5} delay={450} duration={700} />
+              </p>
+            </div>
+            <div>
+              <Scramble
+                as="h2"
+                text="Developer tools."
+                active={scene === 5}
+                delay={400}
+                duration={900}
+                className="text-[clamp(1.5rem,2.4vw,2.2rem)] font-extralight leading-tight tracking-[-0.035em]"
+              />
+              <p className="mt-2 text-[13px] leading-relaxed opacity-60">
+                <Scramble text="Shared interfaces for building software." active={scene === 5} delay={600} duration={700} />
+              </p>
+            </div>
+          </div>
+        </div>
         <a
           href="https://github.com/smart-foundation"
           target="_blank"
@@ -299,7 +350,7 @@ export default function App() {
           }}
           className="group pointer-events-auto mt-8 inline-flex w-fit items-center gap-5 rounded-full bg-[var(--ink)] py-4 pl-7 pr-6 text-[14px] text-[var(--bg)] transition-transform duration-500 hover:scale-[1.03] md:mt-10"
         >
-          <Scramble text="github.com/smart-foundation" active={scene === 4} trigger={cta} delay={cta ? 0 : 800} duration={700} />
+          <Scramble text="github.com/smart-foundation" active={scene === 5} trigger={cta} delay={cta ? 0 : 800} duration={700} />
           <span className="block h-2 w-2 rounded-full bg-[var(--bg)] transition-transform duration-500 group-hover:scale-[2.4]" />
         </a>
         <div className="absolute bottom-6 right-6 flex items-center gap-8 md:bottom-10 md:right-12">
