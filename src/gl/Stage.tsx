@@ -37,7 +37,7 @@ void shape(int id, vec4 s, vec2 g, out vec3 p, out vec2 info){
   float h2 = h11(s.z*57.3 + s.w*31.7);
 
   if (id == 0) {
-    // 00 — noise: dust and concentric shells, still undecided
+    // 00 — foundation: dust and concentric shells, still forming
     float th = s.x*TAU;
     float ph = acos(2.0*s.y - 1.0);
     float r = 1.7 + pow(s.z, 1.6)*4.6;
@@ -50,7 +50,7 @@ void shape(int id, vec4 s, vec2 g, out vec3 p, out vec2 info){
     info = vec2(0.28 + 0.72*h2, 0.7 + 0.9*h1);
   }
   else if (id == 1) {
-    // 01 — contract: a calm, exact lattice
+    // 01 — purpose: a calm, exact lattice
     float x = (g.x - 0.5)*9.0;
     float z = (g.y - 0.5)*9.0;
     float d = length(vec2(x, z));
@@ -62,7 +62,7 @@ void shape(int id, vec4 s, vec2 g, out vec3 p, out vec2 info){
     info = vec2(0.5 + 0.5*smoothstep(-0.4, 0.4, y), 1.0);
   }
   else if (id == 2) {
-    // 02 — anatomy: four stacked discs
+    // 02 — method: four stacked discs
     float L = floor(s.w*4.0);
     float band = floor(sqrt(s.z)*20.0);
     float r = band/20.0*2.55 + 0.05;
@@ -76,7 +76,7 @@ void shape(int id, vec4 s, vec2 g, out vec3 p, out vec2 info){
     info = vec2(0.16 + 0.84*glow, 0.85 + glow*0.7);
   }
   else if (id == 3) {
-    // 03 — naledzi: a star system
+    // 03 — identity: a star system
     float arm = floor(s.w*3.0);
     float r = pow(s.z, 0.62)*4.3 + 0.04;
     float sc = (s.x - 0.5) + (s.y - 0.5);
@@ -89,7 +89,7 @@ void shape(int id, vec4 s, vec2 g, out vec3 p, out vec2 info){
     info = vec2(mix(1.0, 0.35, r/4.3), 0.8 + 1.6*exp(-r*1.6));
   }
   else {
-    // 04 — open: an orb of latitudes and one slow ring
+    // 04 — work: an orb of latitudes and one slow ring
     vec3 b;
     if (s.w > 0.88) {
       float a = s.x*TAU + T*0.2;
@@ -106,7 +106,9 @@ void shape(int id, vec4 s, vec2 g, out vec3 p, out vec2 info){
       info = vec2(0.45 + 0.55*h2, 0.9 + 0.5*h1);
     }
     b = rotX(0.42) * rotZ(0.3) * b;
-    p = b + vec3(o*1.5, 0.35, 0.0);
+    // on narrow screens, keep the orb in the upper half and clear of the copy
+    b *= mix(0.72, 1.0, o);
+    p = b + vec3(o*1.5, 0.35 + (1.0 - o)*1.35, 0.0);
   }
 }
 

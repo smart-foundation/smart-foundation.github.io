@@ -7,7 +7,7 @@ export const S = {
   prog: 0, // smoothed progress used by shaders
   scene: 0,
   invert: false,
-  layer: 3, // focused layer in the anatomy scene
+  layer: 3, // focused layer in the method scene
   burst: 0, // glitch burst 0..1 (decays)
   mouse: { x: 0, y: 0 }, // ndc target
   hover: false,

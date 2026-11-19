@@ -5,14 +5,14 @@ import Cursor from "./components/Cursor";
 import Bands, { Fx, makeFx } from "./components/Bands";
 import { S, SCENES } from "./lib/store";
 
-const NAMES = ["noise", "contract", "anatomy", "naledzi", "open"];
+const NAMES = ["foundation", "purpose", "method", "identity", "work"];
 
 // top → bottom as displayed. `layer` matches the disc index in the shader (0 = bottom).
 const LAYERS = [
-  { name: "Interface", layer: 3, desc: "Naledzi OS. Timeless, accessible, quiet." },
-  { name: "Command", layer: 2, desc: "A CLI that speaks only the contract." },
-  { name: "Engine", layer: 1, desc: "Rust on Linux. Serves the contract over RPC." },
-  { name: "Contract", layer: 0, desc: "One schema. Every implementation answers to it." },
+  { name: "Applications", layer: 3, desc: "What people use." },
+  { name: "Interfaces", layer: 2, desc: "How they meet the system." },
+  { name: "Engines", layer: 1, desc: "What does the work." },
+  { name: "Agreements", layer: 0, desc: "What every part can rely on." },
 ];
 
 const mono = "font-mono text-[10px] uppercase tracking-[0.28em]";
@@ -38,7 +38,7 @@ function Layer({
   );
 }
 
-function Anatomy({ on }: { on: boolean }) {
+function Method({ on }: { on: boolean }) {
   const [layer, setLayer] = useState(3);
   const touched = useRef(0);
 
@@ -65,7 +65,7 @@ function Anatomy({ on }: { on: boolean }) {
     <Layer on={on} className={`flex items-end pb-[13vh] md:items-center md:pb-0 ${pad}`}>
       <div>
         <p className={`${mono} opacity-50`}>
-          <Scramble text="anatomy" active={on} />
+          <Scramble text="how we build" active={on} />
         </p>
         <ul className="mt-6 md:mt-10">
           {LAYERS.map((l, i) => (
@@ -204,18 +204,23 @@ export default function App() {
         ))}
       </nav>
 
-      {/* 00 — noise */}
+      {/* 00 — foundation */}
       <Layer on={scene === 0} className={`flex flex-col justify-end pb-[13vh] md:pb-[15vh] ${pad}`}>
         <Scramble
           as="h1"
-          text={"The contract\nbetween people\nand machines."}
+          text={"Change is constant.\nKeep what matters."}
           active={scene === 0}
           delay={scene === 0 ? 1100 : 0}
           duration={1400}
-          className="text-[clamp(2.6rem,7.2vw,7.6rem)] font-extralight leading-[0.92] tracking-[-0.045em]"
+          className="text-[clamp(2.4rem,7.2vw,7.6rem)] font-extralight leading-[0.92] tracking-[-0.045em]"
         />
-        <p className={`${mono} mt-8 opacity-55 md:mt-12`}>
-          <Scramble text="open protocol · engine · interface" active={scene === 0} delay={scene === 0 ? 1900 : 300} />
+        <p className="mt-8 max-w-[24rem] text-[13px] leading-relaxed opacity-60 md:mt-10">
+          <Scramble
+            text="Smart Foundation is a software organization. We build systems, applications and tools."
+            active={scene === 0}
+            delay={scene === 0 ? 1950 : 300}
+            duration={700}
+          />
         </p>
         <div className="absolute bottom-8 right-6 flex flex-col items-center gap-3 md:right-12">
           <span className={`${mono} !text-[9px] opacity-45 [writing-mode:vertical-rl]`}>scroll</span>
@@ -225,19 +230,19 @@ export default function App() {
         </div>
       </Layer>
 
-      {/* 01 — contract */}
+      {/* 01 — purpose */}
       <Layer on={scene === 1} className={pad}>
         <Scramble
           as="h2"
-          text={"Written once.\nSpoken everywhere."}
+          text={"Software people\ncan rely on."}
           active={scene === 1}
           delay={150}
           duration={1100}
           className="absolute left-6 top-[22vh] text-[clamp(2.2rem,5.8vw,6.2rem)] font-extralight leading-[0.95] tracking-[-0.045em] md:left-12"
         />
-        <p className="absolute bottom-[13vh] right-6 max-w-[16rem] text-[13px] leading-relaxed opacity-60 md:right-20">
+        <p className="absolute bottom-[13vh] right-6 max-w-[19rem] text-[13px] leading-relaxed opacity-60 md:right-20">
           <Scramble
-            text={"One open protocol.\nAny interface can ask.\nAny system can answer."}
+            text={"Systems, applications and tools, built with care for the people who depend on them."}
             active={scene === 1}
             delay={700}
             duration={900}
@@ -245,22 +250,22 @@ export default function App() {
         </p>
       </Layer>
 
-      {/* 02 — anatomy */}
-      <Anatomy on={scene === 2} />
+      {/* 02 — method */}
+      <Method on={scene === 2} />
 
-      {/* 03 — naledzi (inverted) */}
+      {/* 03 — identity (inverted) */}
       <Layer on={scene === 3} className="flex flex-col items-center justify-end px-6 pb-[8vh] text-center">
         <Scramble
           as="h2"
-          text="Naledzi OS"
+          text={"Not a\nproduct."}
           active={scene === 3}
           delay={250}
           duration={1100}
-          className="text-[clamp(3.4rem,14vw,14rem)] font-thin leading-[0.82] tracking-[-0.065em]"
+          className="text-[clamp(3rem,12vw,12rem)] font-thin leading-[0.82] tracking-[-0.065em]"
         />
-        <p className="mt-8 max-w-xs text-[13px] leading-relaxed opacity-60 md:mt-10">
+        <p className="mt-8 max-w-sm text-[13px] leading-relaxed opacity-60 md:mt-10">
           <Scramble
-            text={"An interface built to outlive trends.\nAccessible by default."}
+            text={"Smart Foundation is the organization behind the work.\nSystems, applications and tools are what we make — not what we are."}
             active={scene === 3}
             delay={900}
             duration={900}
@@ -268,16 +273,22 @@ export default function App() {
         </p>
       </Layer>
 
-      {/* 04 — open */}
+      {/* 04 — work */}
       <Layer on={scene === 4} className={`flex flex-col justify-end pb-[13vh] md:pb-[15vh] ${pad}`}>
+        <p className={`${mono} opacity-50`}>
+          <Scramble text="what we make" active={scene === 4} delay={100} />
+        </p>
         <Scramble
           as="h2"
-          text={"Built in\nthe open."}
+          text={"Systems.\nApplications.\nTools."}
           active={scene === 4}
-          delay={150}
+          delay={250}
           duration={1100}
-          className="text-[clamp(2.8rem,8vw,8.4rem)] font-extralight leading-[0.92] tracking-[-0.045em]"
+          className="mt-6 text-[clamp(2.2rem,5.2vw,5.4rem)] font-extralight leading-[0.95] tracking-[-0.045em]"
         />
+        <p className="mt-7 max-w-[24rem] border-t border-white/15 pt-5 text-[13px] leading-relaxed opacity-60 md:mt-9">
+          RISC-V software. Smart Suite. Developer tools.
+        </p>
         <a
           href="https://github.com/smart-foundation"
           target="_blank"
@@ -286,13 +297,13 @@ export default function App() {
             S.burst = Math.max(S.burst, 0.75);
             setCta((c) => c + 1);
           }}
-          className="group pointer-events-auto mt-10 inline-flex w-fit items-center gap-5 rounded-full bg-[var(--ink)] py-4 pl-7 pr-6 text-[14px] text-[var(--bg)] transition-transform duration-500 hover:scale-[1.03] md:mt-14"
+          className="group pointer-events-auto mt-8 inline-flex w-fit items-center gap-5 rounded-full bg-[var(--ink)] py-4 pl-7 pr-6 text-[14px] text-[var(--bg)] transition-transform duration-500 hover:scale-[1.03] md:mt-10"
         >
           <Scramble text="github.com/smart-foundation" active={scene === 4} trigger={cta} delay={cta ? 0 : 800} duration={700} />
           <span className="block h-2 w-2 rounded-full bg-[var(--bg)] transition-transform duration-500 group-hover:scale-[2.4]" />
         </a>
         <div className="absolute bottom-6 right-6 flex items-center gap-8 md:bottom-10 md:right-12">
-          <span className={`${mono} !text-[9px] opacity-40`}>© 2026 smart foundation</span>
+          <span className={`${mono} !text-[9px] opacity-40`}>© 2026 Smart Foundation</span>
           <button onClick={() => goTo(0)} className={`${mono} !text-[9px] pointer-events-auto opacity-70`}>
             start again
           </button>
